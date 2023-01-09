@@ -1,17 +1,12 @@
-﻿
-try
-{
-    int n1 = int.Parse(Console.ReadLine());
-    int n2 = int.Parse(Console.ReadLine());
+﻿using System.Globalization;
 
-    int result = n1 / n2;
-    Console.WriteLine(result);
-}
-catch(DivideByZeroException e)
-{
-    Console.WriteLine("Error!" + e.Message);
-}
-catch(FormatException e)
-{
-    Console.WriteLine("Format Error!" + e.Message);
-}
+/*Problema exemplo
+Fazer um programa para ler os dados de uma reserva de hotel (número do quarto, data
+de entrada e data de saída) e mostrar os dados da reserva, inclusive sua duração em
+dias. Em seguida, ler novas datas de entrada e saída, atualizar a reserva, e mostrar
+novamente a reserva com os dados atualizados. O programa não deve aceitar dados
+inválidos para a reserva, conforme as seguintes regras:
+- Alterações de reserva só podem ocorrer para datas futuras
+- A data de saída deve ser maior que a data de entrada
+*/
+
