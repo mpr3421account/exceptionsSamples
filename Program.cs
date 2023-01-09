@@ -11,3 +11,7 @@ catch(DivideByZeroException e)
 {
     Console.WriteLine("Error!" + e.Message);
 }
+catch(FormatException e)
+{
+    Console.WriteLine("Format Error!" + e.Message);
+}
