@@ -1,4 +1,5 @@
 ﻿using exceptionsSamples.Entities;
+using exceptionsSamples.Entities.Exceptions;
 using System.Globalization;
 
 /*Problema exemplo
@@ -10,20 +11,16 @@ inválidos para a reserva, conforme as seguintes regras:
 - Alterações de reserva só podem ocorrer para datas futuras
 - A data de saída deve ser maior que a data de entrada
 */
-
-Console.Write("Room number: ");
-int number = int.Parse(Console.ReadLine());
-Console.Write("Check-in date (dd/MM/yyyy): ");
-DateTime checkIn = DateTime.Parse(Console.ReadLine());
-Console.Write("Check-out date (dd/MM/yyyy): ");
-DateTime checkOut = DateTime.Parse(Console.ReadLine());
-
-if(checkOut <= checkIn)
+try
 {
-    Console.WriteLine("Error in reservation: Check-Out date must be after check-in date");
-}
-else
-{
+    Console.Write("Room number: ");
+    int number = int.Parse(Console.ReadLine());
+    Console.Write("Check-in date (dd/MM/yyyy): ");
+    DateTime checkIn = DateTime.Parse(Console.ReadLine());
+    Console.Write("Check-out date (dd/MM/yyyy): ");
+    DateTime checkOut = DateTime.Parse(Console.ReadLine());
+
+
     Reservation reservation = new Reservation(number, checkIn, checkOut);
     Console.WriteLine("Reservation: " + reservation);
     Console.WriteLine();
@@ -33,15 +30,12 @@ else
     Console.Write("Check-out date (dd/MM/yyyy): ");
     checkOut = DateTime.Parse(Console.ReadLine());
 
-    string error = reservation.UpdateDates(checkIn, checkOut);
+    reservation.UpdateDates(checkIn, checkOut);
 
-    if(error != null)
-    {
-        Console.WriteLine("Error in reservation: " + error);
-    }
-    
-    else
-    {
-        Console.Write("Reservation: " + reservation);
-    }
+
+    Console.Write("Reservation: " + reservation);
+}
+catch(DomainException e)
+{
+    Console.WriteLine("Error in reservation: " + e.Message);
 }

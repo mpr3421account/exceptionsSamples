@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using exceptionsSamples.Entities.Exceptions;
 
 namespace exceptionsSamples.Entities
 {
@@ -14,6 +15,10 @@ namespace exceptionsSamples.Entities
 
         public Reservation(int roomNumber, DateTime checkIn, DateTime checkOut)
         {
+            if (checkOut <= checkIn)
+            {
+                throw new DomainException("Error in reservation: Check-out date must be after check-in date");
+            }
             RoomNumber = roomNumber;
             CheckIn = checkIn;
             CheckOut = checkOut;
@@ -23,16 +28,16 @@ namespace exceptionsSamples.Entities
             TimeSpan duration = CheckOut.Subtract(CheckIn);
             return(int)duration.TotalDays;
         }
-        public string UpdateDates(DateTime checkIn, DateTime checkOut)
+        public void UpdateDates(DateTime checkIn, DateTime checkOut)
         {
             DateTime now = DateTime.Now;
             if (checkIn < now || checkOut < now)
             {
-                return "Error in reservation: Reservation dates for update must be future dates";
+                throw new DomainException("Error in reservation: Reservation dates for update must be future dates");
             }
             if (checkOut <= checkIn)
             {
-                return "Error in reservation: Check-out date must be after check-in date";
+                throw new DomainException("Error in reservation: Check-out date must be after check-in date");
             }
 
             CheckIn = checkIn;
